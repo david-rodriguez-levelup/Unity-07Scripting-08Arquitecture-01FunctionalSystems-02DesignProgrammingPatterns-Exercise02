@@ -1748,6 +1748,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   commandConfigList: {fileID: 11400000, guid: 66463ef4708d9b9419149e45417847b1, type: 2}
   commandReceiver: {fileID: 1755633552}
+  numRandomSelections: 20
+  timeBetweenRandomSelections: 0.1
 --- !u!1 &1061219603
 GameObject:
   m_ObjectHideFlags: 0
