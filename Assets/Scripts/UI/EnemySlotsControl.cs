@@ -1,15 +1,15 @@
 ﻿using System;
 using UnityEngine;
 
-public class EnemyCommandSelection : AbstractCommandSelection
+public class EnemySlotsControl : AbstractSlotsControl
 {
 
     public override void MakeSelection()
     {
         foreach (SlotState slotState in base.SlotStates)
         {
-            slotState.Random();
+            slotState.Random(allowEmptyAction: false);
         }
-        base.CommitSlots();
+        base.SubmitSlots();
     }
 }

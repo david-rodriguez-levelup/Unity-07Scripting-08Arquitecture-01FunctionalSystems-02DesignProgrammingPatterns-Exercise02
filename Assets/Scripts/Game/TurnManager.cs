@@ -4,11 +4,11 @@ using UnityEngine;
 public class TurnManager : MonoBehaviour
 {
 
-    [SerializeField] PlayerCommandSelection playerCommandSelection;
-    [SerializeField] EnemyCommandSelection enemyCommandSelection;
+    [SerializeField] PlayerSlotsControl playerCommandSelection;
+    [SerializeField] EnemySlotsControl enemyCommandSelection;
 
-    private List<ICommand> playerCommands = new List<ICommand>();
-    private List<ICommand> enemyCommands = new List<ICommand>();
+    private ICommand[] playerCommands;
+    private ICommand[] enemyCommands;
 
     private void Start()
     {
@@ -32,10 +32,10 @@ public class TurnManager : MonoBehaviour
         Debug.Log("NEW TURN:");
         Debug.Log("1) SELECTION:");
 
-        playerCommands.Clear();
-        playerCommandSelection.ResetSlots();
-        enemyCommands.Clear();
-        enemyCommandSelection.ResetSlots();
+        playerCommands = null;
+        playerCommandSelection.InitSlots();
+        enemyCommands = null;
+        enemyCommandSelection.InitSlots();
 
         // Better with a callback?
         playerCommandSelection.MakeSelection();
@@ -45,11 +45,12 @@ public class TurnManager : MonoBehaviour
 
     private void AddPlayerCommands(ICommand[] commands)
     {
+        playerCommands = commands;
+
         Debug.Log("Player commands:");
-        foreach (ICommand command in commands)
+        foreach (ICommand command in playerCommands)
         {
             Debug.Log($"\tCommand {(command != null ? command.ToString() : "EMPTY")} added to player's commands.");
-            playerCommands.Add(command);
         }
 
         // Better with a callback?
@@ -59,11 +60,12 @@ public class TurnManager : MonoBehaviour
 
     private void AddEnemyCommands(ICommand[] commands)
     {
+        enemyCommands = commands;
+
         Debug.Log("Enemy commands:");
-        foreach (ICommand command in commands)
+        foreach (ICommand command in enemyCommands)
         {
-            Debug.Log($"\tCommand {command} added to enemy's commands.");
-            enemyCommands.Add(command);
+            Debug.Log($"\tCommand {(command != null ? command.ToString() : "EMPTY")} added to enemy's commands.");
         }
 
         // Now we can resolve the turn!
@@ -73,9 +75,10 @@ public class TurnManager : MonoBehaviour
     private void ResolveTurn()
     {
         Debug.Log("2) RESOLVE:");
-        for (int i = 0; i < playerCommands.Count; i++)
+        for (int i = 0; i < playerCommands.Length; i++)
         {
             Debug.Log($"Slot {i}:");
+
             ICommand playerCommand = playerCommands[i];
             if (playerCommand != null)
             {
@@ -85,7 +88,16 @@ public class TurnManager : MonoBehaviour
             {
                 Debug.Log("\tPlayer does NOTHING!");
             }
-            enemyCommands[i].Execute();
+
+            ICommand enemyCommand = enemyCommands[i];
+            if (enemyCommand != null)
+            {
+                enemyCommands[i].Execute();
+            }
+            else
+            {
+                Debug.Log("\tEnemy does NOTHING!");
+            }
         }
 
         Debug.Log("______________________________________________________________\n\n");

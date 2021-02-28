@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public interface IChangeSlotIconAction
+public interface ISlotIconChangeAction
 {
     void Perform(Sprite icon);
 }

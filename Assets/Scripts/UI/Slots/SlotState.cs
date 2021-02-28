@@ -1,21 +1,24 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 public class SlotState : MonoBehaviour
 {
     private const int EMPTY = -1;
-   
+
+    public event Action OnChanged;
+
     [SerializeField] Sprite emptyIcon;
 
     public bool Locked { get; set; } = false;
 
-    private IChangeSlotIconAction changeSlotIconAction;
+    private ISlotIconChangeAction slotIconChangeAction;
 
     private CommandConfigList availableCommands;
     private int currentIndex = EMPTY;
 
     private void Awake()
     {
-        changeSlotIconAction = GetComponentInChildren<IChangeSlotIconAction>();
+        slotIconChangeAction = GetComponentInChildren<ISlotIconChangeAction>();
     }
 
     public void SetAvailableCommands(CommandConfigList commandConfigList)
@@ -25,40 +28,53 @@ public class SlotState : MonoBehaviour
 
     private void Start()
     {
-        Reset();
+        Init();
+    }
+
+    public void Init()
+    {
+        Locked = false;
+        currentIndex = EMPTY;
+        ChangeIcon();
     }
 
     public CommandConfig Current => currentIndex != EMPTY ? availableCommands.Get(currentIndex) : null;
 
-    public void Next()
+    public void Next(bool allowEmptyAction)
     {
-        currentIndex = (currentIndex + 1) % availableCommands.Length;
-        UpdateIcon();
+        currentIndex++;
+        if (currentIndex == availableCommands.Length)
+        {
+            if (allowEmptyAction)
+            {
+                currentIndex = EMPTY;
+            }
+            else
+            {
+                currentIndex = 0;
+            }
+        } 
+        ChangeIcon();
     }
 
-    public void Random()
+    public void Random(bool allowEmptyAction)
     {
-        currentIndex = UnityEngine.Random.Range(0, availableCommands.Length);
-        UpdateIcon();
+        int minRange = allowEmptyAction ? EMPTY : 0;
+        currentIndex = UnityEngine.Random.Range(minRange, availableCommands.Length);
+        ChangeIcon();
     }
 
-    public void Reset()
-    {
-        Locked = false;
-        currentIndex = EMPTY;
-        UpdateIcon();
-    }
-
-    private void UpdateIcon()
+    private void ChangeIcon()
     {
         if (currentIndex == EMPTY)
         {
-            changeSlotIconAction.Perform(emptyIcon);
-        } 
+            slotIconChangeAction.Perform(emptyIcon);
+        }
         else
         {
-            changeSlotIconAction.Perform(Current.Icon);
-        }        
+            slotIconChangeAction.Perform(Current.Icon);
+        }
+        OnChanged?.Invoke();
     }
 
 }

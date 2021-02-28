@@ -1,7 +1,7 @@
 ﻿using System;
 using UnityEngine;
 
-public abstract class AbstractCommandSelection : MonoBehaviour
+public abstract class AbstractSlotsControl : MonoBehaviour
 {
 
     public event Action<ICommand[]> OnSelectionDone;
@@ -27,17 +27,17 @@ public abstract class AbstractCommandSelection : MonoBehaviour
         // Overrided in subclasses if needed.
     }
 
-    public void ResetSlots()
+    public void InitSlots()
     {
         foreach (SlotState slotState in SlotStates)
         {
-            slotState.Reset();
+            slotState.Init();
         }
     }
 
     public abstract void MakeSelection();
 
-    protected void CommitSlots()
+    protected void SubmitSlots()
     {
         ICommand[] commands = CommandFactory.CreateCommands(SlotStates, commandReceiver);
         OnSelectionDone?.Invoke(commands);
