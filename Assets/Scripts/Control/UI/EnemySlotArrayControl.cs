@@ -1,8 +1,7 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using UnityEngine;
 
-public class EnemySlotsControl : AbstractSlotsControl
+public class EnemySlotArrayControl : AbstractSlotArrayControl
 {
 
     [SerializeField] int numRandomSelections = 1;

@@ -1,11 +1,12 @@
-﻿using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class TurnManager : MonoBehaviour
 {
 
-    [SerializeField] PlayerSlotsControl playerCommandSelection;
-    [SerializeField] EnemySlotsControl enemyCommandSelection;
+    [SerializeField] PlayerSlotArrayControl playerCommandSelection;
+    [SerializeField] EnemySlotArrayControl enemyCommandSelection;
+
+    private LevelCounter levelCounter;
 
     private ICommand[] playerCommands;
     private ICommand[] enemyCommands;
@@ -13,6 +14,11 @@ public class TurnManager : MonoBehaviour
     private void Start()
     {
         NewTurn();
+    }
+
+    private void Awake()
+    {
+        levelCounter = GetComponent<LevelCounter>();
     }
 
     private void OnEnable()
@@ -36,6 +42,7 @@ public class TurnManager : MonoBehaviour
         playerCommandSelection.InitSlots();
         enemyCommands = null;
         enemyCommandSelection.InitSlots();
+        levelCounter.IncreaseLevel();
 
         // Better with a callback?
         playerCommandSelection.MakeSelection();

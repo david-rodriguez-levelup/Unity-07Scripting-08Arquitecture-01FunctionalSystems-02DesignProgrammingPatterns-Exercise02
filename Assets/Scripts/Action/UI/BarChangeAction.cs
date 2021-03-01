@@ -19,10 +19,10 @@ public class BarChangeAction : MonoBehaviour
 
     public void Init()
     {
-        Change(0f);
+        Perform(0f);
     }
 
-    public void Change(float value)
+    public void Perform(float value)
     {
         slider.value = value;
         label.text = $"{value}/{maxValue}";

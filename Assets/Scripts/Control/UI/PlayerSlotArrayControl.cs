@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public class PlayerSlotsControl : AbstractSlotsControl
+public class PlayerSlotArrayControl : AbstractSlotArrayControl
 {
    
     private PlayerOkButtonControl okButtonSensor;
@@ -71,7 +71,7 @@ public class PlayerSlotsControl : AbstractSlotsControl
                 spentActionPoints += slotState.Current.ActionPoints;
             }
         }
-        barChangeAction.Change(spentActionPoints);
+        barChangeAction.Perform(spentActionPoints);
 
         if (spentActionPoints > barChangeAction.MaxValue)
         {

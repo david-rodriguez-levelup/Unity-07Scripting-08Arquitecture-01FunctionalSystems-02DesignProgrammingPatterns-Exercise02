@@ -1,7 +1,7 @@
 ﻿using System;
 using UnityEngine;
 
-public abstract class AbstractSlotsControl : MonoBehaviour
+public abstract class AbstractSlotArrayControl : MonoBehaviour
 {
 
     public event Action<ICommand[]> OnSelectionDone;
