@@ -2250,10 +2250,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 1136229112}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 234dcd104ea35df46a7929d5651afaf2, type: 3}
+  m_Script: {fileID: 11500000, guid: 62d9184562e23904f920e2d0a00c8502, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gameLevelCounterChangeAction: {fileID: 1853450537}
+  levelCounterChangeAction: {fileID: 1853450537}
 --- !u!1 &1149657909
 GameObject:
   m_ObjectHideFlags: 0
