@@ -13,7 +13,7 @@ public class LevelCounterChangeAction : MonoBehaviour
 
     public void Perform(int value)
     {
-        counter.text = value < 10 ? $"0{value}" : value.ToString();
+        counter.text = value.ToString("00");
     }
 
 }
