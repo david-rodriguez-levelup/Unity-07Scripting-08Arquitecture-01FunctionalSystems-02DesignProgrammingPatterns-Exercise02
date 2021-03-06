@@ -1,6 +1,7 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
 
-public class PlayerHealingAction : MonoBehaviour, ICommandAction
+public class HealingAction : MonoBehaviour, ICommandAction
 {
     private const string ID = "HEALING";
 
@@ -10,4 +11,5 @@ public class PlayerHealingAction : MonoBehaviour, ICommandAction
     {
         Debug.Log($"\t{name} performs ACTION {ID}!");
     }
+
 }

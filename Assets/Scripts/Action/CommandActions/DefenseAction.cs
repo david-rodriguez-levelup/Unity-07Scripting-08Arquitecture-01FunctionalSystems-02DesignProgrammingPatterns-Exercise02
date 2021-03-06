@@ -1,7 +1,9 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
 
-public class PlayerDefenseAction : MonoBehaviour, ICommandAction
+public class DefenseAction : MonoBehaviour, ICommandAction
 {
+
     private const string ID = "DEFENSE";
 
     public string Id => ID;
@@ -10,4 +12,5 @@ public class PlayerDefenseAction : MonoBehaviour, ICommandAction
     {
         Debug.Log($"\t{name} performs ACTION {ID}!");
     }
+
 }

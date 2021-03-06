@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 
-public class SlotIconChangeAction : MonoBehaviour, ISlotIconChangeAction
+public class SlotIconChangeAction : MonoBehaviour
 {
 
     private Image icon;

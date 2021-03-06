@@ -11,14 +11,14 @@ public class SlotState : MonoBehaviour
 
     public bool Locked { get; set; } = false;
 
-    private ISlotIconChangeAction slotIconChangeAction;
+    private SlotIconChangeAction slotIconChangeAction;
 
     private CommandConfigList availableCommands;
     private int currentIndex = EMPTY;
 
     private void Awake()
     {
-        slotIconChangeAction = GetComponentInChildren<ISlotIconChangeAction>();
+        slotIconChangeAction = GetComponentInChildren<SlotIconChangeAction>();
     }
 
     public void SetAvailableCommands(CommandConfigList commandConfigList)
