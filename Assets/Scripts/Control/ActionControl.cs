@@ -1,15 +1,17 @@
 ﻿using UnityEngine;
 
+// PENDIENTE el tema del 50% de daño!!!!!
 // OPCIONES:
-// 1) public bool IsDefending y hacer el set desde TurnManager.
+// 1) public bool IsDefending y hacer el set desde TurnManager (no mola nada).
 // 2) IObserver<AttackAction> (y el damage es una property de solo lectura), 
 //    IObserver<DefenseAction>
 //    IObserver<HealingAction>
 //    En el OnNotify(AttackAction action) habrá que comprobar si el parameter "action" es la del personaje o la del enemigo para poner isDefending a false o no.
 //    En el OnNotify(DefenseAction action) pondremos isDefending a true.
 //    En el OnNotify(HealingAction action) pondremos isDefending a false.
+//    Problema con esta solución: si no se usan interfaces el resto de métodos quedan expuestos.
 
-public class ActionControl /* = DamageControl de David */ : MonoBehaviour, IObserver<AttackArgs>
+public class ActionControl /* = DamageControl de la solución de David */ : MonoBehaviour, IObserver<AttackArgs>
 {
     [SerializeField] private float health; // Aquí de forma temporal, irá a un HealtControl o HealthState.
 
